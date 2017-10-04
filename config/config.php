@@ -1,7 +1,7 @@
 <?php
 
 $config = [
-	"db" => [
+	"DB" => [
 		"mysql" => [
 			"driver" => "mysql",
 			"host" => "localhost",
@@ -13,7 +13,7 @@ $config = [
 		"postgre" => [
 			"driver" => "pgsql",
 			"host" => "localhost",
-            "port"=>"5432",
+            //"port"=>"5432",
 			"username" => "postgres",
 			"password" => "123456",
 			"dbname" => "postgres",

@@ -1,60 +1,22 @@
 <?php
-class Sql extends PDO{
+/**
+ * Created by PhpStorm.
+ * User: Samsung
+ * Date: 03.10.2017
+ * Time: 13:30
+ */
 
-    protected $where;
+class DB extends Sql
+{
+    public function __construct($config){
 
-        public function __construct($config){
-
-            $dns = $config['driver'] .
+        $dns = $config['driver'] .
             ':host=' . $config['host'] .
             ((!empty($config['port'])) ? (';port=' . $config['port']) : '') .
             ';dbname=' . $config['dbname'] .
             ((!empty($config['charset'])) ? (';charset=' . $config['charset']) : '');
-            var_dump($dns);
-            var_dump($config);
         parent::__construct($dns, $config['username'], $config['password']);
-	}
-
-    public function select($str) {
-        $this->select = $str;
-        return $this;
     }
-
-    public function delete() {
-        $this->delete = true;
-        return $this;
-    }
-
-    public function from($str) {
-        $this->from = $str;
-        return $this;
-    }
-
-    public function where($where) {
-        $this->where = $where;
-        return $this;
-    }
-
-    public function insert($arrayFields, $arrayValues) {
-        $fields = implode(',', $arrayFields);
-        $values = "'" . implode("','", $arrayValues) . "'";
-        $this->insert = '(' . $fields . ') values (' . $values . ')';
-
-        return $this;
-    }
-
-    public function update($arrayFields, $arrayValues) {
-        $fields = "";
-        for ($i = 0; $i < count($arrayFields); $i++) {
-            if (strlen($fields) != 0) {
-                $fields .= ',';
-            }
-            $fields .= $arrayFields[$i] . " = '" . $arrayValues[$i] . "'";
-        }
-        $this->update = $fields;
-        return $this;
-    }
-
     public function exec() {
         if (empty($this->from)) {
             throw new Exception("not set");
@@ -100,4 +62,3 @@ class Sql extends PDO{
         return $this->query;
     }
 }
-
